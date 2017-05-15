@@ -25,15 +25,20 @@ class Customer
   /**
    * @ORM\Column(type="string")
    */
+  private $password;
+
+  /**
+   * @ORM\Column(type="string", nullable=true)
+   */
   private $address;
 
   /**
-   * @ORM\Column(type="string")
+   * @ORM\Column(type="string", nullable=true)
    */
   private $city;
 
   /**
-   * @ORM\Column(type="string")
+   * @ORM\Column(type="string", nullable=true)
    */
   private $country;
 
@@ -137,5 +142,28 @@ class Customer
     public function getCountry()
     {
         return $this->country;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return Customer
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
     }
 }

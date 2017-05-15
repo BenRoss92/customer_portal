@@ -7,21 +7,60 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use CustomerPortalBundle\Entity\Customer;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class CustomerController extends Controller
 {
     /**
-     * @Route("/", name="mainpage")
+     * @Route("/sessions/new", name="new_session")
      */
-     public function showAction()
+     public function newSessionsAction(Request $request)
      {
+
+       $session = $request->getSession();
+       $customer = new Customer();
+
+       $form = $this->createFormBuilder($customer)
+          ->add('name', TextType::class)
+          ->add('password', PasswordType::class)
+          ->add('logIn', SubmitType::class, array('label' => 'Login'))
+          ->getForm();
+
+       $form->handleRequest($request);
+
+       if ($form->isSubmitted() && $form->isValid()) {
+         $customer = $form->getData();
+         $session->set('customer_name', $customer->getName());
+         $em = $this->getDoctrine()->getManager();
+         $em->persist($customer);
+         $em->flush();
+
+         return $this->redirectToRoute('index');
+       }
+
+       return $this->render('customer/sessions/new.html.twig', array(
+         'form' => $form->createView(),
+       ));
+     }
+
+    /**
+     * @Route("/", name="index")
+     */
+     public function indexAction(Request $request)
+     {
+
+      $session = $request->getSession();
+      $customer_name = $session->get('customer_name');
       $repository = $this->getDoctrine()
           ->getRepository('CustomerPortalBundle:Customer');
-      $customer = $repository->findOneByName('Ontro Ltd.');
+      $customer = $repository->findOneByName($customer_name);
 
       if (!$customer) {
         throw $this->createNotFoundException(
-          'No customer found for name Ontro Ltd.'
+          'No customer found for name'.$customer_name
         );
       }
       return $this->render('customer/index.html.twig', array(
@@ -31,25 +70,5 @@ class CustomerController extends Controller
         'country' => $customer->getCountry(),
       ));
 
-     }
-
-    /**
-     * @Route("/create", name="createpage")
-     */
-     public function createAction()
-     {
-          $customer = new Customer();
-          $customer->setName('Ontro Ltd.');
-          $customer->setAddress('2 Chitty Street');
-          $customer->setCity('London');
-          $customer->setCountry('United Kingdom');
-
-          $em = $this->getDoctrine()->getManager();
-
-          $em->persist($customer);
-
-          $em->flush();
-
-          return new Response('Saved new customer with name '.$customer->getName());
      }
 }
