@@ -24,7 +24,7 @@ class CustomerController extends Controller
           'No customer found for name Ontro Ltd.'
         );
       }
-      return $this->render('default/index.html.twig', array(
+      return $this->render('customer/index.html.twig', array(
         'name' => $customer->getName(),
         'address' => $customer->getAddress(),
         'city' => $customer->getCity(),
