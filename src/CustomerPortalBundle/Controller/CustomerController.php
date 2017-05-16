@@ -19,7 +19,6 @@ class CustomerController extends Controller
      */
      public function newSessionsAction(Request $request)
      {
-
        $session = $request->getSession();
        $customer = new Customer();
 
@@ -33,6 +32,7 @@ class CustomerController extends Controller
 
        if ($form->isSubmitted() && $form->isValid()) {
          $customer = $form->getData();
+         $session = $request->getSession();
          $session->set('customer_name', $customer->getName());
          $em = $this->getDoctrine()->getManager();
          $em->persist($customer);
@@ -51,8 +51,12 @@ class CustomerController extends Controller
      */
      public function indexAction(Request $request)
      {
-
       $session = $request->getSession();
+
+      if ($session->isStarted() === false) {
+        return $this->redirectToRoute('new_session');
+      }
+
       $customer_name = $session->get('customer_name');
       $repository = $this->getDoctrine()
           ->getRepository('CustomerPortalBundle:Customer');
@@ -63,12 +67,12 @@ class CustomerController extends Controller
           'No customer found for name'.$customer_name
         );
       }
+      
       return $this->render('customer/index.html.twig', array(
         'name' => $customer->getName(),
         'address' => $customer->getAddress(),
         'city' => $customer->getCity(),
         'country' => $customer->getCountry(),
       ));
-
      }
 }

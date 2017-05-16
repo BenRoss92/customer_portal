@@ -6,6 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class CustomerControllerTest extends WebTestCase
 {
+    public function testIndexAction()
+    {
+      $client = static::createClient();
+      $crawler = $client->request('GET', '/');
+      $crawler = $client->followRedirect();
+      $new_sessions_url = $client->getRequest()->getUri();
+      $this->assertContains('http://localhost/sessions/new', $new_sessions_url);
+    }
 
     public function testNewSessions()
     {
@@ -22,6 +30,7 @@ class CustomerControllerTest extends WebTestCase
       ));
       $crawler = $client->submit($form);
       $crawler = $client->followRedirect();
+      $this->assertContains('http://localhost/', $client->getRequest()->getUri());
       $this->assertContains(
         'Name: Ontro Ltd.', $crawler->filter('#name')->text()
       );
