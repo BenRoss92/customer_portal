@@ -19,7 +19,6 @@ class CustomerController extends Controller
      */
      public function newSessionsAction(Request $request)
      {
-       $session = $request->getSession();
        $customer = new Customer();
 
        $form = $this->createFormBuilder($customer)
@@ -34,10 +33,6 @@ class CustomerController extends Controller
          $customer = $form->getData();
          $session = $request->getSession();
          $session->set('customer_name', $customer->getName());
-         $em = $this->getDoctrine()->getManager();
-         $em->persist($customer);
-         $em->flush();
-
          return $this->redirectToRoute('index');
        }
 
@@ -53,21 +48,20 @@ class CustomerController extends Controller
      {
       $session = $request->getSession();
 
-      if ($session->isStarted() === false) {
+      if (!$session->has('customer_name')) {
         return $this->redirectToRoute('new_session');
       }
 
-      $customer_name = $session->get('customer_name');
       $repository = $this->getDoctrine()
           ->getRepository('CustomerPortalBundle:Customer');
-      $customer = $repository->findOneByName($customer_name);
+      $customer = $repository->findOneByName($session->get('customer_name'));
 
       if (!$customer) {
         throw $this->createNotFoundException(
-          'No customer found for name'.$customer_name
+          'No customer found for name '.$session->get('customer_name')
         );
       }
-      
+
       return $this->render('customer/index.html.twig', array(
         'name' => $customer->getName(),
         'address' => $customer->getAddress(),

@@ -24,6 +24,7 @@ class CustomerControllerTest extends WebTestCase
       );
       $this->assertGreaterThan(0, $crawler->filter('#form_name')->count());
       $this->assertGreaterThan(0, $crawler->filter('#form_password')->count());
+
       $form = $crawler->selectButton('Login')->form(array(
         'form[name]' => 'Ontro Ltd.',
         'form[password]' => 'mypassword',
