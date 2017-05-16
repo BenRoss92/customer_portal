@@ -178,4 +178,37 @@ class Customer
     {
         return $this->password;
     }
+
+    /**
+     * Add passengers
+     *
+     * @param \CustomerPortalBundle\Entity\Passenger $passengers
+     * @return Customer
+     */
+    public function addPassenger(\CustomerPortalBundle\Entity\Passenger $passengers)
+    {
+        $this->passengers[] = $passengers;
+
+        return $this;
+    }
+
+    /**
+     * Remove passengers
+     *
+     * @param \CustomerPortalBundle\Entity\Passenger $passengers
+     */
+    public function removePassenger(\CustomerPortalBundle\Entity\Passenger $passengers)
+    {
+        $this->passengers->removeElement($passengers);
+    }
+
+    /**
+     * Get passengers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPassengers()
+    {
+        return $this->passengers;
+    }
 }

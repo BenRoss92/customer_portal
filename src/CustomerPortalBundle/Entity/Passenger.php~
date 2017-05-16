@@ -160,27 +160,4 @@ class Passenger
     {
         return $this->passport_id;
     }
-
-    /**
-     * Set customer
-     *
-     * @param \CustomerPortalBundle\Entity\Customer $customer
-     * @return Passenger
-     */
-    public function setCustomer(\CustomerPortalBundle\Entity\Customer $customer = null)
-    {
-        $this->customer = $customer;
-
-        return $this;
-    }
-
-    /**
-     * Get customer
-     *
-     * @return \CustomerPortalBundle\Entity\Customer 
-     */
-    public function getCustomer()
-    {
-        return $this->customer;
-    }
 }

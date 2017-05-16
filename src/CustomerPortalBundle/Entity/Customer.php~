@@ -3,6 +3,7 @@
 namespace CustomerPortalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -10,6 +11,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Customer
 {
+  /**
+   * @var ArrayCollection
+   *
+   * @ORM\OneToMany(targetEntity="Passenger", mappedBy="customer")
+   */
+  private $passengers;
+
   /**
    * @ORM\Column(type="integer")
    * @ORM\Id
@@ -41,6 +49,10 @@ class Customer
    * @ORM\Column(type="string", nullable=true)
    */
   private $country;
+
+  public function __construct() {
+      $this->passengers = new ArrayCollection();
+  }
 
     /**
      * Get id
