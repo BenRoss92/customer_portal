@@ -3,6 +3,7 @@
 namespace CustomerPortalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Passenger
@@ -12,6 +13,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Passenger
 {
+    /**
+     * @var Customer
+     *
+     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="passengers")
+     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
+     */
+    private $customer;
+
     /**
      * @var int
      *
@@ -31,9 +40,9 @@ class Passenger
     /**
      * @var string
      *
-     * @ORM\Column(name="firstname", type="string", length=255)
+     * @ORM\Column(name="first_name", type="string", length=255)
      */
-    private $firstname;
+    private $first_name;
 
     /**
      * @var string
@@ -45,15 +54,15 @@ class Passenger
     /**
      * @var string
      *
-     * @ORM\Column(name="passportid", type="string", length=20, unique=true)
+     * @ORM\Column(name="passport_id", type="string", length=20, unique=true)
      */
-    private $passportid;
+    private $passport_id;
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -76,7 +85,7 @@ class Passenger
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -84,26 +93,26 @@ class Passenger
     }
 
     /**
-     * Set firstname
+     * Set first_name
      *
-     * @param string $firstname
+     * @param string $first_name
      * @return Passenger
      */
-    public function setFirstname($firstname)
+    public function setFirstName($first_name)
     {
-        $this->firstname = $firstname;
+        $this->first_name = $first_name;
 
         return $this;
     }
 
     /**
-     * Get firstname
+     * Get first_name
      *
-     * @return string 
+     * @return string
      */
-    public function getFirstname()
+    public function getFirstName()
     {
-        return $this->firstname;
+        return $this->first_name;
     }
 
     /**
@@ -122,7 +131,7 @@ class Passenger
     /**
      * Get surname
      *
-     * @return string 
+     * @return string
      */
     public function getSurname()
     {
@@ -130,25 +139,25 @@ class Passenger
     }
 
     /**
-     * Set passportid
+     * Set passport_id
      *
-     * @param string $passportid
+     * @param string $passport_id
      * @return Passenger
      */
-    public function setPassportid($passportid)
+    public function setPassportId($passport_id)
     {
-        $this->passportid = $passportid;
+        $this->passport_id = $passport_id;
 
         return $this;
     }
 
     /**
-     * Get passportid
+     * Get passport_id
      *
-     * @return string 
+     * @return string
      */
-    public function getPassportid()
+    public function getPassportId()
     {
-        return $this->passportid;
+        return $this->passport_id;
     }
 }
