@@ -3,6 +3,7 @@
 namespace CustomerPortalBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use CustomerPortalBundle\Entity\Customer;
@@ -61,8 +62,14 @@ class CustomerController extends Controller
           'No customer found for name '.$session->get('customer_name')
         );
       }
-      
+
       $passengers = $customer->getPassengers();
+
+      $deleteForms = array();
+
+      foreach ($passengers as $passenger) {
+        $deleteForms[$passenger->getId()] = $this->createDeleteForm($passenger)->createView();
+      }
 
       return $this->render('customer/index.html.twig', array(
         'name' => $customer->getName(),
@@ -70,6 +77,44 @@ class CustomerController extends Controller
         'city' => $customer->getCity(),
         'country' => $customer->getCountry(),
         'passengers' => $passengers,
+        'deleteForms' => $deleteForms,
       ));
      }
+
+     /**
+      * Deletes a passenger entity.
+      *
+      * @Route("/{id}", name="passenger_delete")
+      * @Method("DELETE")
+      */
+     public function deleteAction(Request $request, $passenger)
+     {
+         $form = $this->createDeleteForm($passenger);
+         $form->handleRequest($request);
+
+         if ($form->isSubmitted() && $form->isValid()) {
+             $em = $this->getDoctrine()->getManager();
+             $em->remove($passenger);
+             $em->flush();
+         }
+
+         return $this->redirectToRoute('index');
+     }
+
+     /**
+      * Creates a form to delete a passenger entity.
+      *
+      * @param Passenger $passenger The passenger entity
+      *
+      * @return \Symfony\Component\Form\Form The form
+      */
+     private function createDeleteForm($passenger)
+     {
+         return $this->createFormBuilder()
+             ->setAction($this->generateUrl('passenger_delete', array('id' => $passenger->getId())))
+             ->setMethod('DELETE')
+             ->getForm()
+         ;
+     }
+
 }

@@ -115,7 +115,7 @@ class PassengerController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('passenger_index');
+        return $this->redirectToRoute('index');
     }
 
     /**

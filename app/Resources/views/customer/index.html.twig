@@ -30,11 +30,11 @@
             <td>{{ passenger.surname }}</td>
             <td>{{ passenger.passportid }}</td>
             <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('passenger_edit', { 'id': passenger.id }) }}">edit</a>
-                    </li>
-                </ul>
+                <form action="{{ path('passenger_delete', { 'id': passenger.id }) }}" method="post">
+                  <input type="hidden" name="_method" value="DELETE" />
+                  {{ form_widget(deleteForms[passenger.id]) }}
+                  <button type="submit">Delete</button>
+                </form>
             </td>
         </tr>
     {% endfor %}
