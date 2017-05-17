@@ -45,6 +45,16 @@ class PassengerController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $session = $request->getSession();
+
+            $customer_name = $session->get('customer_name');
+            $customer_repository = $this->getDoctrine()
+                ->getRepository('CustomerPortalBundle:Customer');
+            $customer = $customer_repository->findOneByName(
+              $session->get('customer_name')
+            );
+            $passenger->setCustomer($customer);
+
             $em->persist($passenger);
             $em->flush();
 

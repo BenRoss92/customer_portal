@@ -13,9 +13,9 @@ class PassengerType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('first_name')->add('surname')->add('passport_id')->add('customer');
+        $builder->add('title')->add('first_name')->add('surname')->add('passport_id');
     }
-    
+
     /**
      * {@inheritdoc}
      */
