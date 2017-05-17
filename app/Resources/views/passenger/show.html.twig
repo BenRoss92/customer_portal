@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Passenger</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ passenger.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ passenger.title }}</td>
+            </tr>
+            <tr>
+                <th>First_name</th>
+                <td>{{ passenger.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Surname</th>
+                <td>{{ passenger.surname }}</td>
+            </tr>
+            <tr>
+                <th>Passport_id</th>
+                <td>{{ passenger.passportid }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('passenger_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('passenger_edit', { 'id': passenger.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

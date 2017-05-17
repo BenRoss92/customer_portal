@@ -205,10 +205,19 @@ class Customer
     /**
      * Get passengers
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPassengers()
     {
         return $this->passengers;
+    }
+
+    /**
+     * Render a Customer as a string.
+     *
+     * @return string
+     */
+    public function __toString() {
+      return $this->getName();
     }
 }
