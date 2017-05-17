@@ -52,21 +52,24 @@ class CustomerController extends Controller
         return $this->redirectToRoute('new_session');
       }
 
-      $repository = $this->getDoctrine()
+      $customer_repository = $this->getDoctrine()
           ->getRepository('CustomerPortalBundle:Customer');
-      $customer = $repository->findOneByName($session->get('customer_name'));
+      $customer = $customer_repository->findOneByName($session->get('customer_name'));
 
       if (!$customer) {
         throw $this->createNotFoundException(
           'No customer found for name '.$session->get('customer_name')
         );
       }
+      
+      $passengers = $customer->getPassengers();
 
       return $this->render('customer/index.html.twig', array(
         'name' => $customer->getName(),
         'address' => $customer->getAddress(),
         'city' => $customer->getCity(),
         'country' => $customer->getCountry(),
+        'passengers' => $passengers,
       ));
      }
 }

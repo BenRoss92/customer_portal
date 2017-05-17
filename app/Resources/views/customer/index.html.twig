@@ -10,6 +10,43 @@
   <li id="country">Country: {{country}}</li>
 </ul>
 
+<h1>Passengers list</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>First_name</th>
+            <th>Surname</th>
+            <th>Passport_id</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for passenger in passengers %}
+        <tr>
+            <td>{{ passenger.title }}</td>
+            <td>{{ passenger.firstname }}</td>
+            <td>{{ passenger.surname }}</td>
+            <td>{{ passenger.passportid }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('passenger_edit', { 'id': passenger.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('passenger_new') }}">Create a new passenger</a>
+    </li>
+</ul>
+
 {% endblock %}
 
 {% block stylesheets %}
