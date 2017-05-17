@@ -44,6 +44,7 @@ class CustomerController extends Controller
 
     /**
      * @Route("/", name="index")
+     * @Method({"GET", "POST"})
      */
      public function indexAction(Request $request)
      {
@@ -63,23 +64,41 @@ class CustomerController extends Controller
         );
       }
 
-      $passengers = $customer->getPassengers();
+       $form = $this->createFormBuilder($customer)
+          ->add('name', TextType::class)
+          ->add('address', TextType::class)
+          ->add('city', TextType::class)
+          ->add('country', TextType::class)
+          ->add('update', SubmitType::class, array('label' => 'Update'))
+          ->getForm();
 
-      $deleteForms = array();
+        $form->handleRequest($request);
+        $customer = $form->getData();
 
-      foreach ($passengers as $passenger) {
-        $deleteForms[$passenger->getId()] = $this->createDeleteForm($passenger)->createView();
-      }
+        if ($form->isSubmitted() && $form->isValid()) {
+          $customer = $form->getData();
 
-      return $this->render('customer/index.html.twig', array(
-        'name' => $customer->getName(),
-        'address' => $customer->getAddress(),
-        'city' => $customer->getCity(),
-        'country' => $customer->getCountry(),
-        'passengers' => $passengers,
-        'deleteForms' => $deleteForms,
-      ));
-     }
+           $em = $this->getDoctrine()->getManager();
+           $em->persist($customer);
+           $em->flush();
+
+           return $this->redirectToRoute('index');
+          }
+
+        $passengers = $customer->getPassengers();
+
+        $deleteForms = array();
+
+        foreach ($passengers as $passenger) {
+          $deleteForms[$passenger->getId()] = $this->createDeleteForm($passenger)->createView();
+        }
+
+        return $this->render('customer/index.html.twig', array(
+          'passengers' => $passengers,
+          'deleteForms' => $deleteForms,
+          'form' => $form->createView(),
+        ));
+       }
 
      /**
       * Deletes a passenger entity.

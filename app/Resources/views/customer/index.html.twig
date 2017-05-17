@@ -3,14 +3,12 @@
 {% block body %}
 
 <h2>Basic Info:</h2>
-<ul>
-  <li id="name">Name: {{name}}</li>
-  <li id="address">Address: {{address}}</li>
-  <li id="city">City: {{city}}</li>
-  <li id="country">Country: {{country}}</li>
-</ul>
 
-<h1>Passengers list</h1>
+{{ form_start(form) }}
+  {{ form_widget(form) }}
+{{ form_end(form) }}
+
+<h2>Passengers list</h1>
 
 <table>
     <thead>
