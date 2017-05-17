@@ -48,53 +48,12 @@ class PassengerController extends Controller
             $em->persist($passenger);
             $em->flush();
 
-            return $this->redirectToRoute('passenger_show', array('id' => $passenger->getId()));
+            return $this->redirectToRoute('index');
         }
 
         return $this->render('passenger/new.html.twig', array(
             'passenger' => $passenger,
             'form' => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a passenger entity.
-     *
-     * @Route("/{id}", name="passenger_show")
-     * @Method("GET")
-     */
-    public function showAction(Passenger $passenger)
-    {
-        $deleteForm = $this->createDeleteForm($passenger);
-
-        return $this->render('passenger/show.html.twig', array(
-            'passenger' => $passenger,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-     * Displays a form to edit an existing passenger entity.
-     *
-     * @Route("/{id}/edit", name="passenger_edit")
-     * @Method({"GET", "POST"})
-     */
-    public function editAction(Request $request, Passenger $passenger)
-    {
-        $deleteForm = $this->createDeleteForm($passenger);
-        $editForm = $this->createForm('CustomerPortalBundle\Form\PassengerType', $passenger);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('passenger_edit', array('id' => $passenger->getId()));
-        }
-
-        return $this->render('passenger/edit.html.twig', array(
-            'passenger' => $passenger,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
