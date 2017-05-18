@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Passenger creation</h1>
+    <h2>Add Passenger</h2>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <label for="Add" class="btn btn-primary">
+          <i class="glyphicon glyphicon-plus"></i> Add</label>
+        <input id="Add" type="submit" value="Add" class="hidden" />
     {{ form_end(form) }}
-    
+
 {% endblock %}

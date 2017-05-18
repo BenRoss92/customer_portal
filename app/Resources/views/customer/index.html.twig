@@ -10,7 +10,7 @@
 
 <h2>Passengers list</h1>
 
-<table>
+<table class="table">
     <thead>
         <tr>
             <th>Title</th>
@@ -31,18 +31,17 @@
                 <form action="{{ path('passenger_delete', { 'id': passenger.id }) }}" method="post">
                   <input type="hidden" name="_method" value="DELETE" />
                   {{ form_widget(deleteForms[passenger.id]) }}
-                  <button type="submit">Delete</button>
+                  <button class="glyphicon glyphicon-remove" type="submit"></button>
                 </form>
             </td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
-
-<ul>
-    <li>
-        <a href="{{ path('passenger_new') }}">Create a new passenger</a>
-    </li>
-</ul>
+      <div id="add-pull-right">
+        <a href="{{ path('passenger_new') }}" class="btn btn-primary" role="button">
+          <i class="glyphicon glyphicon-plus"></i> Add
+        </a>
+      </div>
 
 {% endblock %}
