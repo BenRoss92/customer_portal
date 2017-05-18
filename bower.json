@@ -1,0 +1,21 @@
+{
+  "name": "customer_portal",
+  "homepage": "https://github.com/BenRoss92/customer_portal",
+  "authors": [
+    "BenRoss92 <benjaminjackross@gmail.com>"
+  ],
+  "description": "Customer Portal",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
