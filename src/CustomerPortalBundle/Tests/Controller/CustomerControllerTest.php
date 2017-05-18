@@ -26,14 +26,11 @@ class CustomerControllerTest extends WebTestCase
       $this->assertGreaterThan(0, $crawler->filter('#form_password')->count());
 
       $form = $crawler->selectButton('Login')->form(array(
-        'form[name]' => 'Ontro Ltd.',
+        'form[name]' => 'Catalyst Climbing',
         'form[password]' => 'mypassword',
       ));
       $crawler = $client->submit($form);
       $crawler = $client->followRedirect();
       $this->assertContains('http://localhost/', $client->getRequest()->getUri());
-      $this->assertContains(
-        'Name: Ontro Ltd.', $crawler->filter('#name')->text()
-      );
     }
 }

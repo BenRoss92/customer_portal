@@ -1,69 +1,57 @@
-Symfony Standard Edition
-========================
+# Customer Portal
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+## Technologies Used
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+- PHP 5
+- Apache
+- Symfony2 (version 2.8)
+- Twig
+- Doctrine
+- MySQL
+- Bootstrap
+- PHP Unit
 
-What's inside?
---------------
+## The Brief - Specification Overview
 
-The Symfony Standard Edition is configured with the following defaults:
+- Customer can log in with valid credentials
+- It displays a list of basic customer info
+- Customer info can be updated
+- New passengers can be added
+- Passengers can be deleted
+- New trips can be added
+- Trips can be deleted
 
-  * An AppBundle you can use to start coding;
+## Challenges
 
-  * Twig as the only configured template engine;
+- Getting Apache to load the correct PHP configuration file (php.ini) as Homebrew build had no file loaded
+  - I tried changing configuration files for both Apache and PHP - discovered apache was not finding the correct PHP directory
+- PHP is a very new language for me
+  - I have mostly used Ruby and JavaScript and only briefly used PHP to tackle the 'Fizzbuzz' challenge
+  - Although Ruby is also an object-oriented language, PHP has some quirks and the syntax is fairly new for me.
+- Using largely unfamiliar technologies
+  - The only other technology I have used in previous projects is Bootstrap. There was a lot to learn of Symfony, Twig and Doctrine, although I found the Symfony2 docs extremely detailed and clear.
+- Installing and enabling extensions e.g. ‘intl’ using composer
+  - Tried installing both natively and by using PEAR and PECL, however after much configuration, neither proved successful. In the interest of saving time, I decided to eventually skip fixing the installation and focus on other tasks.
+- Repopulating a MySQL database deployed on Heroku
+  - Heroku by default uses PostgreSQL. I used Heroku's ClearDB add-on to deploy the MySQL database, but ClearDB does not have an option to fork a copy of a local database to the deployed version. As a work-around, I created a '/create' controller route near the beginning of building to create new users to interact with, as they could not be entered manually with MySQL on the production server.
 
-  * Doctrine ORM/DBAL;
+## Instructions
 
-  * Swiftmailer;
+### To try out the app online
 
-  * Annotations enabled for everything.
+- Visit https://br-customer-portal.herokuapp.com/
+- On the login page, enter `Ontro Ltd.` into the `Name` field.
+- Enter any password (currently there is no user authentication/validation) and click `Login`
+- To edit the customer information, edit the fields (except for `Name`) and click `Update`
+- You can add and delete passengers
 
-It comes pre-configured with the following bundles:
+### To run locally
 
-  * **FrameworkBundle** - The core Symfony framework bundle
-
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
-
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
-
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
-
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
-
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
-
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
-
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
-
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
-
-  * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation
-    capabilities
-
-  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
-    integration
-
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
-
-Enjoy!
-
-[1]:  https://symfony.com/doc/2.8/setup.html
-[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/2.8/doctrine.html
-[8]:  https://symfony.com/doc/2.8/templating.html
-[9]:  https://symfony.com/doc/2.8/security.html
-[10]: https://symfony.com/doc/2.8/email.html
-[11]: https://symfony.com/doc/2.8/logging.html
-[12]: https://symfony.com/doc/2.8/assetic/asset_management.html
-[13]: https://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html
+- Fork the repository and clone into it - `$ git clone git@github.com:BenRoss92/customer_portal.git && cd customer_portal`
+- Install the dependencies
+  - `$ composer install`
+  - Update external dependencies using `$ composer update`
+- Make sure all of the required technologies are installed - PHP, Apache, Symfony, MySQL, Composer, Bower and PHPUnit
+- Run the tests - `$ phpunit -c app --debug`
+- Run the server - `$ php app/console server:run`
+- Visit the URL address displayed in the command line (the default is http://localhost:8000)
