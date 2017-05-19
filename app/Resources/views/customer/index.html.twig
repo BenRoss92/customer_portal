@@ -8,40 +8,42 @@
   {{ form_widget(form) }}
 {{ form_end(form) }}
 
-<h2>Passengers list</h1>
+<h2>Passengers list</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>First_name</th>
-            <th>Surname</th>
-            <th>Passport_id</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for passenger in passengers %}
-        <tr>
-            <td>{{ passenger.title }}</td>
-            <td>{{ passenger.firstname }}</td>
-            <td>{{ passenger.surname }}</td>
-            <td>{{ passenger.passportid }}</td>
-            <td>
-                <form action="{{ path('passenger_delete', { 'id': passenger.id }) }}" method="post">
-                  <input type="hidden" name="_method" value="DELETE" />
-                  {{ form_widget(deleteForms[passenger.id]) }}
-                  <button class="glyphicon glyphicon-remove" type="submit"></button>
-                </form>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
-      <div id="add-pull-right">
-        <a href="{{ path('passenger_new') }}" class="btn btn-primary" role="button">
-          <i class="glyphicon glyphicon-plus"></i> Add
-        </a>
-      </div>
+<div class="table-responsive">
+  <table class="table">
+      <thead>
+          <tr>
+              <th>Title</th>
+              <th>First_name</th>
+              <th>Surname</th>
+              <th>Passport_id</th>
+              <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody>
+      {% for passenger in passengers %}
+          <tr>
+              <td>{{ passenger.title }}</td>
+              <td>{{ passenger.firstname }}</td>
+              <td>{{ passenger.surname }}</td>
+              <td>{{ passenger.passportid }}</td>
+              <td>
+                  <form action="{{ path('passenger_delete', { 'id': passenger.id }) }}" method="post">
+                    <input type="hidden" name="_method" value="DELETE" />
+                    {{ form_widget(deleteForms[passenger.id]) }}
+                    <button class="glyphicon glyphicon-remove" type="submit"></button>
+                  </form>
+              </td>
+          </tr>
+      {% endfor %}
+      </tbody>
+  </table>
+</div>
+<div id="add-pull-right">
+  <a href="{{ path('passenger_new') }}" class="btn btn-primary" role="button">
+    <i class="glyphicon glyphicon-plus"></i> Add
+  </a>
+</div>
 
 {% endblock %}
