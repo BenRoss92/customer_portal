@@ -2,14 +2,7 @@
 
 ## Technologies Used
 
-- PHP 5
-- Apache
-- Symfony2 (version 2.8)
-- Twig
-- Doctrine
-- MySQL
-- Bootstrap
-- PHP Unit
+- PHP 5, Apache, Symfony2 (version 2.8), Twig, Doctrine, MySQL, Bootstrap, PHP Unit
 
 ## The Brief - Specification Overview
 
@@ -21,7 +14,60 @@
 - New trips can be added
 - Trips can be deleted
 
-## Challenges
+## User stories
+
+### Completed
+```
+As a Customer
+So that I can view my basic information
+I would like to see a list of Customer information displayed on the main Customer Portal page
+
+As a Customer
+So that I can return to my account when I like
+I would like to log into my Customer account
+
+As a Customer
+So that I can add passengers travelling on behalf of the company
+I would like to add a new passenger to the passengers list on the main page
+
+As a Customer
+So that I can edit my basic information
+I would like to see editable input fields for Customer information displayed on the main Customer Portal page
+
+As a Customer
+So that I can remove a passenger travelling on behalf of the company
+I would like to see a button to remove a passenger from the passenger list
+```
+
+### To do
+```
+As a Customer
+So that my account will be secure,
+I would like to my credentials to be authenticated when logging in
+
+As a Customer
+So that I can add a list of trips that a customer wants,
+I would like to add a new trip to the trip list on the main page using the Add Trip page
+
+As a Customer
+So that I can remove a list of trips that a customer no longer wants,
+I would like to see a button to remove a trip from the Trips list
+
+As a Customer
+So that I can avoid other customers using my account
+I would like to log out of my Customer account
+```
+
+## Other tasks to complete
+
+- Allow a customer to change their login name once logged in (if changed it currently results in an error)
+  - Solution: add the customer's ID to the current session instead of the customer's name
+- Create remaining feature tests
+- Create a test database (only used when running tests)
+- Add user authentication matching name and password (with password encryption)
+- Add validation (for html forms and database)
+
+## Challenges faced during building
 
 - Getting Apache to load the correct PHP configuration file (php.ini) as Homebrew build had no file loaded
   - I tried changing configuration files for both Apache and PHP - discovered apache was not finding the correct PHP directory
