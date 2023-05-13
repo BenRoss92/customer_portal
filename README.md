@@ -83,14 +83,6 @@ I would like to log out of my Customer account
 
 ## Instructions
 
-### To try out the app online
-
-- Visit https://br-customer-portal.herokuapp.com/
-- On the login page, enter `Ontro Ltd.` into the `Name` field.
-- Enter any password (currently there is no user authentication/validation) and click `Login`
-- To edit the customer information, edit the fields (except for `Name`) and click `Update`
-- You can add and delete passengers
-
 ### To run locally
 
 - Fork the repository and clone into it - `$ git clone git@github.com:BenRoss92/customer_portal.git && cd customer_portal`
@@ -101,3 +93,7 @@ I would like to log out of my Customer account
 - Run the tests - `$ phpunit -c app --debug`
 - Run the server - `$ php app/console server:run`
 - Visit the URL address displayed in the command line (the default is http://localhost:8000)
+- On the login page, enter `Ontro Ltd.` into the `Name` field.
+- Enter any password (currently there is no user authentication/validation) and click `Login`
+- To edit the customer information, edit the fields (except for `Name`) and click `Update`
+- You can add and delete passengers
